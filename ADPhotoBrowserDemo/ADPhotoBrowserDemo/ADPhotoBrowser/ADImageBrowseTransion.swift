@@ -40,12 +40,6 @@ class ADImageBrowseTransion: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let fvc = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
-//        var fromVC: DetailViewController!
-//        if fvc is UINavigationController {
-//            fromVC = (fvc as! UINavigationController).viewControllers.last as! DetailViewController
-//        }else {
-//            fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! DetailViewController
-//        }
         
         // 获取动画的源控制器和目标控制器
         let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!

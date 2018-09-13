@@ -47,13 +47,6 @@ class ADImageBrowsePopTransion: NSObject, UIViewControllerAnimatedTransitioning 
             fromVC.paningImageView?.removeFromSuperview()
         }
         
-        //        let snapshotView = UIImageView(frame: snapFrame!)
-        //        snapshotView.contentMode = .scaleAspectFill
-        //        snapshotView.clipsToBounds = true
-        //        snapshotView.backgroundColor = .black
-        //        snapshotView.image = fromVC.loopView!.currentShowImgView!.image!
-        //        fromVC.loopView!.currentShowImgView!.isHidden = true
-        
         var snapshotView: UIImageView?
         if fromView != nil {
             snapshotView = UIImageView(frame: snapFrame!)
@@ -108,8 +101,6 @@ class ADImageBrowsePopTransion: NSObject, UIViewControllerAnimatedTransitioning 
         snapShot.layer.masksToBounds = false
         snapShot.layer.cornerRadius = 0.0
         snapShot.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-        //        snapShot.layer.shadowRadius = 5.0
-        //        snapShot.layer.shadowOpacity = 0.4
         
         return snapShot
     }

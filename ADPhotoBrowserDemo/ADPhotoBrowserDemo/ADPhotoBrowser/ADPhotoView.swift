@@ -149,16 +149,6 @@ extension ADPhotoView {
 
 extension ADPhotoView: UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
-    
-    
-//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        if scrollView.contentOffset.y < 0 {
-//            scrollView.contentSize = CGSize(width: 0, height: 0)
-//        }else {
-//            self.contentSize = CGSize(width: self.adImageView!.frame.width, height: self.adImageView!.frame.height)
-//        }
-//    }
-    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.adImageView
     }

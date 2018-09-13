@@ -240,7 +240,6 @@ class ADPhotoBrowser: UIViewController, UIViewControllerTransitioningDelegate {
             // 宽度差
             let widthDifference = oriFrame.width - oriFrame.width * moveRatio
             // x点位移
-//            let xMove = widthDifference * (startPoint!.x / UIScreen.main.bounds.size.width)
             let xMove = widthDifference * (startPoint!.x / oriFrame.width)
             
             self.paningImageView?.frame = CGRect(x: oriFrame.origin.x + movePoint.x + xMove, y: oriFrame.origin.y + movePoint.y, width: oriFrame.width * moveRatio, height: oriFrame.height * moveRatio)
@@ -249,10 +248,6 @@ class ADPhotoBrowser: UIViewController, UIViewControllerTransitioningDelegate {
     
     /// 获取当前显示图片的CGRect
     func getLoopViewCurrentImageFrame() -> CGRect {
-//        let imgWidth = UIScreen.main.bounds.size.width
-//        let imgHeight = (self.loopView!.currentShowImgView!.image!.size.height * imgWidth)/self.loopView!.currentShowImgView!.image!.size.width
-//        let y = (UIScreen.main.bounds.size.height - imgHeight) / 2
-        
         let imgWidth = self.loopView!.currentShowImgView!.frame.width
         let imgHeight = self.loopView!.currentShowImgView!.frame.height
         let x = CGFloat(0) - self.loopView!.currentShowPhotoView!.contentOffset.x
