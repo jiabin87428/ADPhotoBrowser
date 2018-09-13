@@ -149,6 +149,14 @@ extension ADPhotoView {
 
 extension ADPhotoView: UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if self.contentOffset.y < 0 {
+            return true
+        }else {
+            return false
+        }
+    }
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.adImageView
     }
