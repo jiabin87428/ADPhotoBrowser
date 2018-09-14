@@ -40,6 +40,15 @@ class ADPhotoBrowser: UIViewController, UIViewControllerTransitioningDelegate {
                         self?.paningImageView = nil
                         self?.loopView?.currentShowImgView?.isHidden = false
                         self?.loopView?.currentShowPhotoView?.contentSize = CGSize(width: (self?.loopView?.currentShowImgView?.frame.width)!, height: (self?.loopView?.currentShowImgView?.frame.height)!)
+                        
+                        var offset: CGPoint?
+                        let imgHeight = self?.loopView?.currentShowImgView?.frame.height
+                        if isIPhoneX && imgHeight! >= UIScreen.main.bounds.height{
+                            offset = CGPoint(x: 0, y: 0 - UIApplication.shared.statusBarFrame.height)
+                        }else {
+                            offset = CGPoint(x: 0, y: 0)
+                        }
+                        self?.loopView?.currentShowPhotoView?.setContentOffset(offset!, animated: false)
                     })
                 }
             }
@@ -251,7 +260,10 @@ class ADPhotoBrowser: UIViewController, UIViewControllerTransitioningDelegate {
         let imgWidth = self.loopView!.currentShowImgView!.frame.width
         let imgHeight = self.loopView!.currentShowImgView!.frame.height
         let x = CGFloat(0) - self.loopView!.currentShowPhotoView!.contentOffset.x
-        let y = self.loopView!.currentShowImgView!.frame.origin.y
+        var y = self.loopView!.currentShowImgView!.frame.origin.y
+        if isIPhoneX && imgHeight >= UIScreen.main.bounds.height {
+            y = y + UIApplication.shared.statusBarFrame.height
+        }
         
         let snapFrame = CGRect(x: x, y: y, width: imgWidth, height: imgHeight)
         return snapFrame

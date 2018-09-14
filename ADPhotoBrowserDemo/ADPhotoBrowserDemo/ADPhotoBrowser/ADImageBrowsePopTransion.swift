@@ -48,7 +48,7 @@ class ADImageBrowsePopTransion: NSObject, UIViewControllerAnimatedTransitioning 
         }
         
         var snapshotView: UIImageView?
-        if fromView != nil {
+        if fromView != nil && snapFrame != nil{
             snapshotView = UIImageView(frame: snapFrame!)
             snapshotView?.contentMode = .scaleAspectFill
             snapshotView?.clipsToBounds = true

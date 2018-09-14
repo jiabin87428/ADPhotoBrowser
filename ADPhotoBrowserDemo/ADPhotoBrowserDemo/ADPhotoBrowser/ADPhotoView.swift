@@ -8,11 +8,15 @@
 
 import UIKit
 
+/// iPhone X及以上机型
+var isIPhoneX = UIScreen.main.bounds.size.height >= 812 ? true : false
 
 class ADPhotoView: UIScrollView {
     weak var adPhotoDelegate: ADPhotoViewDelegate?
     /// 显示图片
     var adImageView: UIImageView?
+    /// 图片加载Loading
+    private var loading: UIActivityIndicatorView?
     
     /// URL String
     private var imageUrl = ""
@@ -42,6 +46,10 @@ class ADPhotoView: UIScrollView {
     
     /// 初始化设置
     private func initSetting() {
+        if #available(iOS 11, *), !isIPhoneX  {
+            self.contentInsetAdjustmentBehavior = .never
+        }
+        
         self.backgroundColor = .clear
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
@@ -61,13 +69,17 @@ class ADPhotoView: UIScrollView {
         imgView.image = self.placeholder
         imgView.isUserInteractionEnabled = true
         imgView.clipsToBounds = true
-        imgView.contentMode = .scaleAspectFill
+        imgView.contentMode = .scaleAspectFit
         imgView.frame = self.getLoopViewCurrentImageFrame(image: self.placeholder)
         self.adImageView = imgView
-        
         self.contentSize = CGSize(width: imgView.frame.width, height: imgView.frame.height)
-        
         self.addSubview(imgView)
+        
+        let loading = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        loading.center = imgView.center
+        loading.activityIndicatorViewStyle = .whiteLarge
+        self.loading = loading
+        self.addSubview(loading)
         
         let singleClick = UITapGestureRecognizer(target: self, action: #selector(singleClickToDismiss))
         imgView.addGestureRecognizer(singleClick)
@@ -82,7 +94,12 @@ class ADPhotoView: UIScrollView {
             return
         }
         if imageUrl.hasPrefix("http") {// 图片来自网络
-            self.loadWebImage(url: imageUrl)
+            ADPhotoLoader.share.loadImage(url: imageUrl, complete: {[weak self](data: Data?, url: String) in
+                self?.loading?.stopAnimating()
+                if data != nil {
+                    self?.adImageView?.image = UIImage(data: data!)
+                }
+            })
         }else {// 图片来自本地
             let localImg = UIImage(named: imageUrl)
             self.adImageView?.image = localImg
@@ -116,26 +133,6 @@ class ADPhotoView: UIScrollView {
 
 // MARK: 工具方法
 extension ADPhotoView {
-    /// 异步加载图片
-    /// - parameter url             :网络图片地址
-    /// - parameter placeholder     :占位图
-    private func loadWebImage(url: String?) {
-        if url == nil{
-            return
-        }
-        
-        /// 全局队列异步执行
-        DispatchQueue.global(qos: .userInitiated).async {[weak self] in
-            let imgUrl = URL(string: url!)
-            let imgData = try? Data(contentsOf: imgUrl!)
-            if imgData != nil {
-                DispatchQueue.main.async {[weak self] in
-                    self?.adImageView?.image = UIImage(data: imgData!)
-                }
-            }
-        }
-    }
-    
     /// 获取当前显示图片的CGRect
     private func getLoopViewCurrentImageFrame(image: UIImage) -> CGRect {
         let imgWidth = UIScreen.main.bounds.size.width
@@ -150,7 +147,7 @@ extension ADPhotoView {
 extension ADPhotoView: UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if self.contentOffset.y < 0 {
+        if self.contentOffset.y <= 0 {
             return true
         }else {
             return false

@@ -9,25 +9,12 @@
 import UIKit
 
 class ADImageBrowseTransion: NSObject, UIViewControllerAnimatedTransitioning {
-    
-    /// 屏幕的宽
-    let SCREENW = UIScreen.main.bounds.size.width
-    /// 屏幕的高
-    let SCREENH = UIScreen.main.bounds.size.height
-    
-    /// iPhone X
-    var isIPhoneX = false
     // 来源视图
     private var fromView: UIImageView?
     
     init(fromView: UIImageView?) {
         super.init()
         self.fromView = fromView
-        if SCREENH >= 812 {
-            isIPhoneX = true
-        }else {
-            isIPhoneX = false
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,7 +63,7 @@ class ADImageBrowseTransion: NSObject, UIViewControllerAnimatedTransitioning {
                 snapshotView?.frame = toVC.view.frame
             }
             // 如果是iPhoneX，截屏的y坐标加上导航栏差的24
-            if (self?.isIPhoneX)! {
+            if (isIPhoneX) {
 //                snapshotView.frame.origin.y = toVC.view.frame.origin.y + 24;
             }
             // 目标VC透明度渐出

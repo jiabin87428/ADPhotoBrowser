@@ -132,6 +132,10 @@ class ADPhotoLoopView: UIView {
         createPageControl()
         self.pagePosition = .center
         
+        if #available(iOS 11, *), !isIPhoneX  {
+            self.loopView!.contentInsetAdjustmentBehavior = .never
+        }
+        
         if self.imageList!.count<2{
             pageControl?.isHidden = true
         }
