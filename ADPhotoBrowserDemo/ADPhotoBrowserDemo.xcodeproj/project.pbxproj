@@ -20,7 +20,6 @@
 		4247A931214A074F00F2FBC9 /* ADImageBrowsePopTransion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4247A92C214A074F00F2FBC9 /* ADImageBrowsePopTransion.swift */; };
 		4247A932214A074F00F2FBC9 /* ADPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4247A92D214A074F00F2FBC9 /* ADPhotoBrowser.swift */; };
 		4247A934214A0BFB00F2FBC9 /* ADPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4247A933214A0BFB00F2FBC9 /* ADPageControl.swift */; };
-		426ABCF2214B58CF005187A6 /* ADPhotoLocalCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426ABCF1214B58CF005187A6 /* ADPhotoLocalCache.swift */; };
 		426ABCF4214B8551005187A6 /* ADPhotoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426ABCF3214B8551005187A6 /* ADPhotoLoader.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,7 +60,6 @@
 		4247A92C214A074F00F2FBC9 /* ADImageBrowsePopTransion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADImageBrowsePopTransion.swift; sourceTree = "<group>"; };
 		4247A92D214A074F00F2FBC9 /* ADPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADPhotoBrowser.swift; sourceTree = "<group>"; };
 		4247A933214A0BFB00F2FBC9 /* ADPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADPageControl.swift; sourceTree = "<group>"; };
-		426ABCF1214B58CF005187A6 /* ADPhotoLocalCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADPhotoLocalCache.swift; sourceTree = "<group>"; };
 		426ABCF3214B8551005187A6 /* ADPhotoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADPhotoLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,7 +149,6 @@
 				4247A92B214A074E00F2FBC9 /* ADPhotoLoopView.swift */,
 				4247A92A214A074E00F2FBC9 /* ADPhotoView.swift */,
 				4247A933214A0BFB00F2FBC9 /* ADPageControl.swift */,
-				426ABCF1214B58CF005187A6 /* ADPhotoLocalCache.swift */,
 				426ABCF3214B8551005187A6 /* ADPhotoLoader.swift */,
 			);
 			path = ADPhotoBrowser;
@@ -289,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4247A8FD214A008C00F2FBC9 /* ViewController.swift in Sources */,
-				426ABCF2214B58CF005187A6 /* ADPhotoLocalCache.swift in Sources */,
 				4247A934214A0BFB00F2FBC9 /* ADPageControl.swift in Sources */,
 				4247A930214A074F00F2FBC9 /* ADPhotoLoopView.swift in Sources */,
 				4247A931214A074F00F2FBC9 /* ADImageBrowsePopTransion.swift in Sources */,

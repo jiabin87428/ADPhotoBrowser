@@ -38,17 +38,18 @@ class ADPageControl: UIPageControl {
             }
             if pagePosition == .center{
                 var center = self.center
-                center.x = self.center.x
+                center.x = self.superview!.center.x
                 self.center = center
             }
             if pagePosition == .right{
-                self.frame = CGRect(x: self.frame.width - self.frame.width - 10, y: self.frame.origin.y, width: self.frame.width, height: self.frame.height)
+                self.frame = CGRect(x: self.superview!.frame.width - self.frame.width - 10, y: self.frame.origin.y, width: self.frame.width, height: self.frame.height)
             }
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         let marginX = margin + dotW
         
         for i in 0..<self.subviews.count {

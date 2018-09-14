@@ -8,46 +8,12 @@
 
 import UIKit
 
-/// 分页点宽度
-private var dotW: CGFloat = 7.0
-/// 分页点高度
-private var dotH: CGFloat = 7.0
-/// 分页点间隔
-private var margin: CGFloat = 4.0
-
 class ADPhotoLoopView: UIView {
     /// 分页控件位置
     enum PAGECONTROL_POSITION: Int {
         case left = 1
         case center = 2
         case right = 3
-    }
-    
-    // MARK: 共有属性
-    /// 分页控件位置 默认.center
-    /// - parameter .left   :居左
-    /// - parameter .center :居中
-    /// - parameter .right  :居右
-    var pagePosition = PAGECONTROL_POSITION.center {
-        didSet{
-            guard pageControl != nil else {
-                return
-            }
-            let marginX = margin + dotW
-            let newW: CGFloat = CGFloat(pageControl!.subviews.count) * marginX - margin
-            pageControl!.frame = CGRect(x: pageControl!.frame.origin.x, y: pageControl!.frame.origin.y, width: newW, height: pageControl!.frame.size.height)
-            if pagePosition == .left{
-                pageControl!.frame = CGRect(x: 10, y: pageControl!.frame.origin.y, width: pageControl!.frame.width, height: pageControl!.frame.height)
-            }
-            if pagePosition == .center{
-                var center = pageControl!.center
-                center.x = self.center.x
-                pageControl!.center = center
-            }
-            if pagePosition == .right{
-                pageControl!.frame = CGRect(x: self.frame.width - pageControl!.frame.width - 10, y: pageControl!.frame.origin.y, width: pageControl!.frame.width, height: pageControl!.frame.height)
-            }
-        }
     }
     
     /// ADPhotoLoopView代理
@@ -130,7 +96,6 @@ class ADPhotoLoopView: UIView {
         self.initHeight = self.frame.height
         createLoopView()
         createPageControl()
-        self.pagePosition = .center
         
         if #available(iOS 11, *), !isIPhoneX  {
             self.loopView!.contentInsetAdjustmentBehavior = .never
@@ -176,12 +141,12 @@ class ADPhotoLoopView: UIView {
             return
         }
         
-        pageControl = ADPageControl(frame: CGRect(x: 0, y: self.bounds.height - 30, width: self.bounds.width, height: 30))
+        pageControl = ADPageControl(frame: CGRect(x: 0, y: self.bounds.height - 50, width: self.bounds.width, height: 30))
         pageControl?.numberOfPages = imageList!.count
         pageControl?.currentPage = currentPage
         pageControl?.isUserInteractionEnabled = false
         self.addSubview(pageControl!)
-        
+        pageControl?.pagePosition = .center
     }
     
     // 每次图片滚动时刷新图片
@@ -193,36 +158,6 @@ class ADPhotoLoopView: UIView {
         if self.delegate != nil && self.delegate!.responds(to: #selector(ADPhotoLoopViewDelegate.adPhotoLoopViewWithCurrentIndex(adPhotoLoopView:currentIndex:))) {
             self.delegate?.adPhotoLoopViewWithCurrentIndex!(adPhotoLoopView: self, currentIndex: currentPage)
         }
-    }
-}
-
-// MARK: ADPhotoLoopView公开方法
-extension ADPhotoLoopView {
-    /// 设置分页的图标
-    /// - parameter pageImage           :分页图
-    /// - parameter currentPageImage    :当前分页图
-    /// - parameter dotWidth            :分页点宽度 默认20
-    /// - parameter dotHeight           :分页点高度 默认3
-    /// - parameter dotMargin           :分页点间隔 默认5
-    func setPageImge(pageImage: String, currentPageImage: String, dotWidth: CGFloat = 20.0, dotHeight: CGFloat = 3.0, dotMargin: CGFloat = 5.0) {
-        let pageImg = UIImage(named: pageImage)
-        let currentPageImg = UIImage(named: currentPageImage)
-        dotW = dotWidth
-        dotH = dotHeight
-        margin = dotMargin
-        self.pagePosition = PAGECONTROL_POSITION(rawValue: self.pagePosition.rawValue)!
-        pageControl?.setNeedsLayout()
-        
-        // 一定要两个图片都正确才能成功赋值
-        if pageImg != nil && currentPageImg != nil{
-            pageControl?.setValue(UIImage(named: pageImage), forKey: "_pageImage")
-            pageControl?.setValue(UIImage(named: currentPageImage), forKey: "_currentPageImage")
-        }
-    }
-    
-    /// 重设loopView的contentSize
-    func resetContentSize(size: CGSize) {
-        self.loopView?.contentSize = size
     }
 }
 

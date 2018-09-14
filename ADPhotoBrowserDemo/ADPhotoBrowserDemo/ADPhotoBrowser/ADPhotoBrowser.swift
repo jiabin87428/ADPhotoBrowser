@@ -171,7 +171,6 @@ class ADPhotoBrowser: UIViewController, UIViewControllerTransitioningDelegate {
         }
         loopView!.delegate = self
         loopView!.loopContentMode = .scaleAspectFit
-        loopView!.pagePosition = .center
         loopView!.isHidden = true
         loopView!.backgroundColor = .black
         self.loopView = loopView
